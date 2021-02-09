@@ -77,15 +77,4 @@ class SignupButton extends StatelessWidget {
       ),
     );
   }
-
-  void chekValidation() {
-    if (Get.find<SignupController>().formPage.value == 0) {
-      Get.find<SignupController>().chekNameAndEmail();
-      if (Get.find<SignupController>().emailError.value == true) {
-        return;
-      }
-      Get.find<SignupController>().formPage.value = 1;
-    } else
-      Get.find<SignupController>().show();
-  }
 }

@@ -1,16 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class LoginButton extends StatelessWidget {
+  final Function onClick;
+  LoginButton(this.onClick);
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         InkWell(
           splashColor: Colors.white,
-          onTap: () {
-            Get.snackbar("title", "message");
-          },
+          onTap: onClick,
           child: Container(
             height: 50,
             width: 150,

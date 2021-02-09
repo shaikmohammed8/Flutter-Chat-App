@@ -1,7 +1,6 @@
 import 'package:chat_app/screens/LoginScreen/widgets/login_options.dart';
 
 import 'package:get/get.dart';
-import './widgets/login_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'widgets/edit_texts.dart';
@@ -39,7 +38,6 @@ class LoginScreen extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     fontStyle: FontStyle.italic)),
             TextFields(),
-            Center(child: LoginButton()),
             SizedBox(
               height: 100,
             ),

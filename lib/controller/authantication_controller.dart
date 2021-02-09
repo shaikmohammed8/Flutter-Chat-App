@@ -4,11 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class SignupController extends GetxController {
-  static FirebaseAuth auth = FirebaseAuth.instance;
-  var authentication = AuthenticationService(auth);
+  static FirebaseAuth _auth = FirebaseAuth.instance;
+
+  var authentication = AuthenticationService(_auth);
   var formPage = 0.obs;
-  var emailError = false.obs;
-  var isSignup = false.obs;
 
   var email = "".obs;
   var name = "".obs;
@@ -22,22 +21,35 @@ class SignupController extends GetxController {
       Get.offAll(AfterLog());
     }
   }
+}
 
-  void show() {
-    print("sdf" + name.value);
-    print("asdf" + email.value);
-    print(password.value);
-    print(confirmPassword.value);
+class LoginController extends GetxController {
+  static FirebaseAuth _auth = FirebaseAuth.instance;
+  var authentication = AuthenticationService(_auth);
+
+  void login(String email, String password) async {
+    var isSucces = await authentication.login(email, password);
+    print(isSucces);
+    if (isSucces == true) {
+      Get.offAll(AfterLog());
+    }
   }
 
-  void chekNameAndEmail() {
-    if (!GetUtils.isEmail(email.value) || name.value.length < 2) {
-      emailError.value = true;
-    } else
-      emailError.value = false;
+  void forgerPassword(String email) {
+    authentication.forget(email);
   }
 }
 
-class AuthController {
-  // Rx<FirebaseUser> firebaseuser = Rx<FirebaseUser>();
+class AuthController extends GetxController {
+  Rx<User> user = Rx<User>();
+
+  @override
+  void onInit() {
+    user.bindStream(FirebaseAuth.instance.authStateChanges());
+    super.onInit();
+  }
+
+  void logout() async {
+    await FirebaseAuth.instance.signOut();
+  }
 }

@@ -13,8 +13,8 @@ class TextFields extends StatefulWidget {
 }
 
 class _TextFieldsState extends State<TextFields> {
-  var nameController = TextEditingController();
-  var emailController = TextEditingController();
+  var nameController = TextEditingController(text: TextFields.name);
+  var emailController = TextEditingController(text: TextFields.email);
 
   @override
   Widget build(BuildContext context) {
