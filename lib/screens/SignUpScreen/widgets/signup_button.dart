@@ -41,10 +41,10 @@ class SignupButton extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.teal[100],
+                          color: Get.theme.primaryColor.withOpacity(0.8),
                           spreadRadius: 1,
                           offset: Offset(5, 5),
-                          blurRadius: 4)
+                          blurRadius: 15)
                     ]),
               ),
             ),
@@ -58,7 +58,7 @@ class SignupButton extends StatelessWidget {
     return Obx(
       () => GestureDetector(
         onTap: () {
-          Get.find<SignupController>().formPage.value = 0;
+          Get.find<SignupController>().formPage.value--;
           TextFields.name = Get.find<SignupController>().name.value;
           TextFields.email = Get.find<SignupController>().email.value;
         },
@@ -67,11 +67,14 @@ class SignupButton extends StatelessWidget {
             : Row(children: [
                 Icon(
                   Icons.arrow_back_ios,
-                  color: Colors.red,
+                  color: Colors.black,
                 ),
                 Text(
                   "Go back",
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      .copyWith(color: Colors.black),
                 ),
               ]),
       ),

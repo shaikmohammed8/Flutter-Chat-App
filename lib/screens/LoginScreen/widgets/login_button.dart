@@ -21,7 +21,7 @@ class LoginButton extends StatelessWidget {
               child: Center(
                 child: Text(
                   "Login",
-                  style: TextStyle(color: Colors.white, fontSize: 24),
+                  style: TextStyle(color: Colors.white, fontSize: 28),
                 ),
               ),
             ),

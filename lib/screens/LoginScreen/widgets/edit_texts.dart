@@ -75,7 +75,10 @@ class _TextFieldsState extends State<TextFields> {
             ),
             TextButton(
               child: Text("Forget Password?",
-                  style: Theme.of(context).textTheme.bodyText1),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      .copyWith(color: Colors.black)),
               onPressed: () {
                 Get.to(ForgetPassword());
               },

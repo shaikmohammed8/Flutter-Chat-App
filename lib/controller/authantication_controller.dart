@@ -1,11 +1,15 @@
-import 'package:chat_app/screens/afterlog.dart';
 import 'package:chat_app/services/authentication.dart';
+import 'package:chat_app/services/firestroresevice.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SignupController extends GetxController {
+  Rx<PickedFile> file = Rx<PickedFile>();
   static FirebaseAuth _auth = FirebaseAuth.instance;
-
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController cnfPasswordController = TextEditingController();
   var authentication = AuthenticationService(_auth);
   var formPage = 0.obs;
 
@@ -15,11 +19,20 @@ class SignupController extends GetxController {
   var confirmPassword = "".obs;
 
   void signup() async {
-    var isTrue = await authentication.signUp(email.value, password.value);
-    print("ssss$isTrue");
+    var isTrue =
+        await authentication.signUp(email.value, passwordController.text);
     if (isTrue == true) {
-      Get.offAll(AfterLog());
+      await FireStoreDB().addUser(
+          _auth.currentUser.uid, name.value, email.value, file.value.path);
+      Get.offAllNamed("/chathome");
     }
+  }
+
+  @override
+  void onClose() {
+    passwordController.clear();
+    cnfPasswordController.clear();
+    super.onClose();
   }
 }
 
@@ -31,7 +44,8 @@ class LoginController extends GetxController {
     var isSucces = await authentication.login(email, password);
     print(isSucces);
     if (isSucces == true) {
-      Get.offAll(AfterLog());
+      Get.offAllNamed("/chathome");
+      //  Get.offAll(AfterLog());
     }
   }
 
@@ -46,10 +60,7 @@ class AuthController extends GetxController {
   @override
   void onInit() {
     user.bindStream(FirebaseAuth.instance.authStateChanges());
+    print("asdf" + user.value.toString());
     super.onInit();
-  }
-
-  void logout() async {
-    await FirebaseAuth.instance.signOut();
   }
 }

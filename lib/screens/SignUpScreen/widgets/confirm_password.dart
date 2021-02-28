@@ -12,7 +12,7 @@ class ConfirmPassword extends StatefulWidget {
 
 class _ConfirmPasswordState extends State<ConfirmPassword> {
   var password = TextEditingController();
-
+  var controller = Get.find<SignupController>();
   var confirmPassword = TextEditingController();
 
   @override
@@ -31,7 +31,7 @@ class _ConfirmPasswordState extends State<ConfirmPassword> {
                   else
                     return null;
                 },
-                controller: password,
+                controller: controller.passwordController,
                 enableSuggestions: false,
                 autocorrect: false,
                 obscureText: true,
@@ -51,12 +51,12 @@ class _ConfirmPasswordState extends State<ConfirmPassword> {
             ),
             TextFormField(
                 validator: (val) {
-                  if (val != password.text)
+                  if (val != controller.passwordController.text)
                     return "Password does'nt match";
                   else
                     return null;
                 },
-                controller: confirmPassword,
+                controller: controller.cnfPasswordController,
                 enableSuggestions: false,
                 autocorrect: false,
                 obscureText: true,
@@ -77,11 +77,11 @@ class _ConfirmPasswordState extends State<ConfirmPassword> {
             ),
             SignupButton(() {
               if (ConfirmPassword.formKey.currentState.validate()) {
+                Get.find<SignupController>().formPage.value = 2;
                 Get.find<SignupController>().password.value = password.text;
-                Get.find<SignupController>().signup();
               } else
                 return;
-            }, "Sign up")
+            }, "Next")
           ],
         ),
       ),

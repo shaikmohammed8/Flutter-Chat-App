@@ -16,7 +16,7 @@ class ForgetPassword extends StatelessWidget {
                 Get.back();
               }),
           SizedBox(
-            height: 60,
+            height: 30,
           ),
           Text(
             "Forget Password",
@@ -28,13 +28,8 @@ class ForgetPassword extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          Text(
-            "Please make sure that you have Entered conrrect email",
-            style: TextStyle(
-              color: Colors.red,
-              fontSize: 15,
-            ),
-          ),
+          Text("Please make sure that you have Entered conrrect email",
+              style: Theme.of(context).textTheme.bodyText1),
           SizedBox(
             height: 20,
           ),
@@ -61,8 +56,13 @@ class ForgetPassword extends StatelessWidget {
           Center(
             child: ElevatedButton(
               onPressed: onClick,
-              child: Text("Send"),
+              child: Text(
+                "Send",
+                style: TextStyle(fontSize: 24),
+              ),
               style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(13)),
                   minimumSize: Size.copy(Size(150, 50)),
                   shadowColor: Theme.of(context).primaryColor,
                   elevation: 10,
