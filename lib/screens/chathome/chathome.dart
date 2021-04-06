@@ -41,6 +41,9 @@ class ChatHomeScreen extends StatelessWidget {
                                   "uid": UserModel.fromDatabase(
                                           snapshot.data[index])
                                       .id,
+                                  "photo": UserModel.fromDatabase(
+                                          snapshot.data[index])
+                                      .profileImage,
                                   "state": UserModel.fromDatabase(
                                           snapshot.data[index])
                                       .state
@@ -53,8 +56,14 @@ class ChatHomeScreen extends StatelessWidget {
                                 ),
                                 subtitle: subtitleBuilder(snapshot, index),
                                 title: Text(
-                                    UserModel.fromDatabase(snapshot.data[index])
-                                        .name),
+                                  UserModel.fromDatabase(snapshot.data[index])
+                                      .name,
+                                  style: TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 18,
+                                      letterSpacing: 1,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               );
                             },
                           ),

@@ -1,5 +1,6 @@
 import 'package:chat_app/services/authentication.dart';
 import 'package:chat_app/services/firestroresevice.dart';
+import 'package:chat_app/utils/custombottomnavigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -44,7 +45,7 @@ class LoginController extends GetxController {
     var isSucces = await authentication.login(email, password);
     print(isSucces);
     if (isSucces == true) {
-      Get.offAllNamed("/chathome");
+      Get.offAll(() => CustomBottomNavigationBar());
       //  Get.offAll(AfterLog());
     }
   }

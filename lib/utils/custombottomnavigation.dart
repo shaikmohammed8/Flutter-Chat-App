@@ -1,6 +1,7 @@
-import 'package:chat_app/screens/callScreen/callscreen.dart';
+import 'package:chat_app/controller/firestore.dart';
 import 'package:chat_app/screens/chathome/chathome.dart';
 import 'package:chat_app/screens/friendsScreen/firendsscreen.dart';
+import 'package:chat_app/screens/settingScreen/settingscreen.dart';
 import 'package:chat_app/services/firestroresevice.dart';
 import 'package:chat_app/utils/const.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,6 +17,10 @@ class CustomBottomNavigationBar extends StatefulWidget {
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
     with WidgetsBindingObserver {
+  var controller = Get.lazyPut<FireStoreController>(() {
+    Get.smartManagement = SmartManagement.keepFactory;
+    return FireStoreController();
+  });
   var index = 0;
   var firestore = FireStoreDB();
 
@@ -59,7 +64,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
     });
   }
 
-  List<Widget> screens = [ChatHomeScreen(), FirendsScreen(), CallScreen()];
+  List<Widget> screens = [ChatHomeScreen(), FirendsScreen(), SettingScreen()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,13 +130,13 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
                     ),
                     BottomNavigationBarItem(
                         icon: Icon(
-                          Icons.call,
+                          Icons.settings,
                           color: Colors.grey[400],
                         ),
                         label: "",
                         activeIcon: Column(
                           children: [
-                            Icon(Icons.call),
+                            Icon(Icons.settings),
                             SizedBox(
                               height: 2,
                             ),

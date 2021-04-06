@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SearchScreen extends StatelessWidget {
+  var usercontroller = Get.find<FireStoreController>();
   var controller = Get.put(SearchController());
   @override
   Widget build(BuildContext context) {
@@ -30,32 +31,36 @@ class SearchScreen extends StatelessWidget {
             child: Obx(
               () => ListView.builder(
                   itemCount: controller.list.length,
-                  itemBuilder: (ctx, index) => ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(controller.list[index].profileImage),
-                        ),
-                        title: Text(controller.list[index].name),
-                        trailing: IconButton(
-                            icon: Icon(
-                              Icons.person_add_sharp,
-                              color: Colors.orange,
-                            ),
-                            onPressed: () {
-                              Get.snackbar("Sent", "Friend request sent",
-                                  margin: EdgeInsets.only(
-                                      left: 8, right: 8, bottom: 15),
-                                  colorText: Colors.white,
-                                  snackPosition: SnackPosition.BOTTOM,
-                                  backgroundColor: Colors.black);
+                  itemBuilder: (ctx, index) => controller.list[index].id ==
+                          FirebaseAuth.instance.currentUser.uid
+                      ? Container()
+                      : ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                controller.list[index].profileImage),
+                          ),
+                          title: Text(controller.list[index].name),
+                          trailing: IconButton(
+                              icon: Icon(
+                                Icons.person_add_sharp,
+                                color: Colors.orange,
+                              ),
+                              onPressed: () {
+                                Get.snackbar("Sent", "Friend request sent",
+                                    margin: EdgeInsets.only(
+                                        left: 8, right: 8, bottom: 15),
+                                    colorText: Colors.white,
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor: Colors.black);
 
-                              controller.sendRequest(
-                                  rUid: controller.list[index].id,
-                                  cUid: FirebaseAuth.instance.currentUser.uid,
-                                  name: controller.list[index].name,
-                                  photo: controller.list[index].profileImage);
-                            }),
-                      )),
+                                controller.sendRequest(
+                                    rUid: controller.list[index].id,
+                                    cUid: FirebaseAuth.instance.currentUser.uid,
+                                    name: usercontroller.currentUser.value.name,
+                                    photo: usercontroller
+                                        .currentUser.value.profileImage);
+                              }),
+                        )),
             ),
           ),
         ],

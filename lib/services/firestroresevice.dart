@@ -86,4 +86,15 @@ class FireStoreDB {
         break;
     }
   }
+
+  void deleteCall(String cUid, String rUid) async {
+    await callRef.doc(cUid).delete();
+    await callRef.doc(rUid).delete();
+  }
+
+  Stream<List<QueryDocumentSnapshot>> getFriends() => friendRef
+      .doc(FirebaseAuth.instance.currentUser.uid)
+      .collection("friends")
+      .snapshots()
+      .map((event) => event.docs);
 }

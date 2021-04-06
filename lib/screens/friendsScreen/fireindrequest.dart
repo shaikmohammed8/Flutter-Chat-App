@@ -1,9 +1,12 @@
+import 'package:chat_app/controller/controllers.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FirendRequest extends StatelessWidget {
-  final image, name;
-  FirendRequest(this.image, this.name);
+  var controller = Get.put(FriendController());
+  final image, name, uid;
+  FirendRequest(this.image, this.name, this.uid);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,14 +28,24 @@ class FirendRequest extends StatelessWidget {
               Icons.cancel,
               color: Colors.red,
             ),
-            onPressed: () {},
+            onPressed: () {
+              controller.deleteRequest(
+                  FirebaseAuth.instance.currentUser.uid, uid);
+            },
           ),
           IconButton(
             icon: Icon(
               Icons.check_circle_sharp,
               color: Colors.blue,
             ),
-            onPressed: () {},
+            onPressed: () {
+              controller.addFreind(
+                FirebaseAuth.instance.currentUser.uid,
+                uid,
+                name,
+                image,
+              );
+            },
           )
         ])
       ],

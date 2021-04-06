@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           fontFamily: "Cambria",
           // fontFamily: GoogleFonts.camba(fontWeight: FontWeight.w600).fontFamily,
           scaffoldBackgroundColor: Colors.white,
-          primaryColor: Colors.indigo,
+          primaryColor: Color(0xFF4354F1),
           inputDecorationTheme: InputDecorationTheme(
               disabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(width: 1),
